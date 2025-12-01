@@ -123,10 +123,11 @@ class Battleship:
                         row_index + delta_row,
                         col_index + delta_col
                     )
-                    if (
-                        (new_row, new_col) in occupied
-                        and (new_row, new_col) not in self.field
-                    ):
-                        raise ValueError(
-                            "Ships cannot touch each other, even diagonally."
-                        )
+                    if (new_row, new_col) in self.field:
+                        neighbor_ship = self.field[(new_row, new_col)]
+                        current_ship = self.field[(row_index, col_index)]
+                        if neighbor_ship is not current_ship:
+                            raise ValueError(
+                                "Ships cannot touch each other, "
+                                "even diagonally."
+                            )
